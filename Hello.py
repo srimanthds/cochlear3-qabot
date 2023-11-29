@@ -48,8 +48,12 @@ def get_secret_key():
     open_api_key = st.secrets.open_api_key
     if not open_api_key:
         raise ValueError("The open_api_key environment variable is not set.")
-
-    atlas_connection_string = "mongodb+srv://st.secrets.db_username:st.secrets.db_pswd@cluster0.1thtla4.mongodb.net/?retryWrites=true&w=majority"
+    s1 = st.secrets.db_username
+    s2 = st.secrets.db_pswd
+    st.write(s1)
+    st.write(s2)
+    atlas_connection_string = "mongodb+srv://"+s1+":"+s2+"@cluster0.1thtla4.mongodb.net/?retryWrites=true&w=majority"
+    st.write(atlas_connection_string)
     if not atlas_connection_string:
         raise ValueError("The atlas_connection_string environment variable is not set.")
     secret_key_dict = {"open_api_key": open_api_key, "atlas_connection_string": atlas_connection_string}
