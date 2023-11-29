@@ -3,3 +3,9 @@ numpy
 pandas
 pydeck
 streamlit
+langchain
+openai
+chromadb
+tiktoken
+pymongo
+joblib
