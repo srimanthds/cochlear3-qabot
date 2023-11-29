@@ -187,7 +187,7 @@ with st.form('myform', clear_on_submit=True):
             st.session_state.qa_data['responses'].append(response)
             for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
                 st.info(f"Response : {r}")
-            st.title('Similar Documents')
+            st.title('Top Similar Documents')
             df_lis = []
             for i in docs["source_documents"]:
                 lis = []
