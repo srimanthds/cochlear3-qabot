@@ -45,7 +45,6 @@ CHUNK_OVERLAP = 100
 
 
 def get_secret_key():
-    st.write("DB username:", st.secrets["open_api_key"])
     open_api_key = st.secrets.open_api_key
     if not open_api_key:
         raise ValueError("The open_api_key environment variable is not set.")
