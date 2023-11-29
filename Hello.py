@@ -176,7 +176,10 @@ with st.form('myform', clear_on_submit=True):
     
     if submitted:
         with st.spinner('Calculating...'):
-            response = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+            try:
+                response = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+            except:
+                time.sleep(60)
             result.append(response)
             st.session_state.qa_data['question'] = query_text
             st.session_state.qa_data['responses'].append(response)
