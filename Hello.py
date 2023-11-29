@@ -24,8 +24,10 @@ from langchain.docstore.document import Document
 from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 import streamlit as st
 import pandas as pd
+
 
 
 # In[2]:
@@ -108,6 +110,39 @@ def get_prompt():
     )
     return prompt
 
+def get_prompt_critique():
+    prompt_template = """You are the smart engine that looks at the response below along with the question asked
+    and makes edit to the response only if you think the response needs to be edited due to logical or contradicting mistakes
+
+    1. First read the question stated below and understand it.
+    2. Read the response below. This response acts as the answer to the question. However this response may be semantically
+    or logically incorrect in response.
+    3. The response usually will have 2 parts, the first part will be the answer and the second part will have the context 
+    or information or reasoning from which the answer was stated.
+    4. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
+
+    
+    Be precise and accurate and be logical in answering. 
+    
+    While formulating it be accurate and logical. Do not give contradicting answers. 
+
+    The response should be the only facts you will look out for and not any other external
+    facts. While formulating the response read the question again and answer accordingly to avoid contradicting replies
+
+    Reply with the reformulated response.
+
+    Just send the response, do not prefix with anything like "Response :" or "Revised Response :"
+
+    Question: {Question}
+    
+    Response: {Response}
+
+
+    """
+    prompt = PromptTemplate(
+        template=prompt_template, input_variables=["Question", "Response"]
+    )
+    return prompt
 
 # In[20]:
 
@@ -125,7 +160,7 @@ def get_response(db_name, collection_name, index_name, query):
     prompt = get_prompt()
     try:
         qa = RetrievalQA.from_chain_type(
-            llm=OpenAI(api_key=open_api_key),
+            llm=OpenAI(api_key=open_api_key,temperature=0),
             chain_type="stuff",
             retriever=qa_retriever,
             return_source_documents=True,
@@ -134,7 +169,7 @@ def get_response(db_name, collection_name, index_name, query):
     except:
         time.sleep(120)
         qa = RetrievalQA.from_chain_type(
-            llm=OpenAI(api_key=open_api_key),
+            llm=OpenAI(api_key=open_api_key,temperature=0),
             chain_type="stuff",
             retriever=qa_retriever,
             return_source_documents=True,
@@ -181,7 +216,23 @@ with st.form('myform', clear_on_submit=True):
                 docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
             except:
                 time.sleep(120)
+                docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+
             response = docs["result"]
+            try:
+                prompt = get_prompt_critique()
+                llm = OpenAI(api_key=open_api_key,temperature=0)
+                prompt.format(Question=query_text,Response=response)
+                chain1 = LLMChain(llm=llm,prompt=prompt)
+                response = chain1.run(Question=query_text,Response=response)
+            except:
+                time.sleep(120)
+                prompt = get_prompt_critique()
+                llm = OpenAI(api_key=open_api_key,temperature=0)
+                prompt.format(Question=query_text,Response=response)
+                chain1 = LLMChain(llm=llm,prompt=prompt)
+                response = chain1.run(Question=query_text,Response=response)
+                
             result.append(response)
             st.session_state.qa_data['question'] = query_text
             st.session_state.qa_data['responses'].append(response)
