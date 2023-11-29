@@ -25,6 +25,7 @@ from langchain.chains import RetrievalQA
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 import streamlit as st
+import pandas as pd
 
 
 # In[2]:
@@ -131,7 +132,7 @@ def get_response(db_name, collection_name, index_name, query):
             chain_type_kwargs={"prompt": prompt},
         )
     except:
-        time.sleep(60)
+        time.sleep(120)
         qa = RetrievalQA.from_chain_type(
             llm=OpenAI(api_key=open_api_key),
             chain_type="stuff",
@@ -144,7 +145,7 @@ def get_response(db_name, collection_name, index_name, query):
 
     # print(docs["result"])
     # print(docs["source_documents"])
-    return docs["result"]
+    return docs
 
 
 # In[ ]:
@@ -177,14 +178,27 @@ with st.form('myform', clear_on_submit=True):
     if submitted:
         with st.spinner('Calculating...'):
             try:
-                response = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+                docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
             except:
-                time.sleep(60)
+                time.sleep(120)
+            response = docs["result"]
             result.append(response)
             st.session_state.qa_data['question'] = query_text
             st.session_state.qa_data['responses'].append(response)
             for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
                 st.info(f"Response : {r}")
+            st.title('Similar Documents')
+            df_lis = []
+            for i in docs["source_documents"]:
+                lis = []
+                lis.append(i.page_content)
+                lis.append(i.metadata["source"])
+                lis.append(i.metadata["page"])
+                df_lis.append(lis)
+            similar_df = pd.DataFrame(df_lis,columns = ["Text", "Source Document", "Page Number"])
+
+            st.table(similar_df)
+            
             
 #             del openai_api_key
 st.write(f"Last Submitted Question: {st.session_state.qa_data['question']}")
