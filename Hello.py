@@ -209,7 +209,7 @@ streamlit_pwd = st.secrets.streamlit_pwd
 
 user_input = st.text_input('Enter the application password:', type='password')
 if user_input != streamlit_pwd:
-    st.error("Authentication failed. Please provide a valid API key.")
+    st.error("Authentication failed. Please provide the correct password.")
 else:
     with st.form('myform', clear_on_submit=True):
         query_text = st.text_input('Enter your question:', placeholder = 'Please provide a short summary.', disabled=False)
