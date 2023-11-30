@@ -201,7 +201,7 @@ open_api_key = secret_key_dict["open_api_key"]
 if 'qa_data' not in st.session_state:
     st.session_state.qa_data = {'question': '', 'responses': []}
 
-streamlit_pwd = st.secrets["secrets"]["streamlit_pwd"]
+streamlit_pwd = st.secrets.streamlit_pwd
 # Form input and query
 
 
