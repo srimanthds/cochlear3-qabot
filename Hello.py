@@ -51,7 +51,9 @@ def get_secret_key():
     open_api_key = st.secrets.open_api_key
     if not open_api_key:
         raise ValueError("The open_api_key environment variable is not set.")
-    atlas_connection_string = "mongodb+srv://srimanthdudi95:srimanth123@cluster0.1thtla4.mongodb.net/?retryWrites=true&w=majority"
+    s1 = st.secrets.db_username
+    s2 = st.secrets.db_pswd
+    atlas_connection_string = "mongodb+srv://{s1}:{s2}@cluster0.1thtla4.mongodb.net/?retryWrites=true&w=majority".format(s1 = s1, s2 = s2)
     if not atlas_connection_string:
         raise ValueError("The atlas_connection_string environment variable is not set.")
     secret_key_dict = {"open_api_key": open_api_key, "atlas_connection_string": atlas_connection_string}
@@ -205,7 +207,7 @@ streamlit_pwd = st.secrets.streamlit_pwd
 # Form input and query
 
 
-user_input = st.text_input('Enter API Key:', type='password')
+user_input = st.text_input('Enter the application password:', type='password')
 if user_input != streamlit_pwd:
     st.error("Authentication failed. Please provide a valid API key.")
 else:
