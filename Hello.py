@@ -201,61 +201,66 @@ open_api_key = secret_key_dict["open_api_key"]
 if 'qa_data' not in st.session_state:
     st.session_state.qa_data = {'question': '', 'responses': []}
 
-
+streamlit_pwd = st.secrets["secrets"]["streamlit_pwd"]
 # Form input and query
 
-with st.form('myform', clear_on_submit=True):
-    query_text = st.text_input('Enter your question:', placeholder = 'Please provide a short summary.', disabled=False)
 
-    # openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
-    submitted = st.form_submit_button('Submit')
-    
-    if submitted:
-        with st.spinner('Calculating...'):
-            try:
-                docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
-            except:
-                time.sleep(120)
-                docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+user_input = st.text_input('Enter API Key:', type='password')
+if user_input != streamlit_pwd:
+    st.error("Authentication failed. Please provide a valid API key.")
+else:
+    with st.form('myform', clear_on_submit=True):
+        query_text = st.text_input('Enter your question:', placeholder = 'Please provide a short summary.', disabled=False)
 
-            response = docs["result"]
-            try:
-                prompt = get_prompt_critique()
-                llm = OpenAI(api_key=open_api_key,temperature=0)
-                prompt.format(Question=query_text,Response=response)
-                chain1 = LLMChain(llm=llm,prompt=prompt)
-                response = chain1.run(Question=query_text,Response=response)
-            except:
-                time.sleep(120)
-                prompt = get_prompt_critique()
-                llm = OpenAI(api_key=open_api_key,temperature=0)
-                prompt.format(Question=query_text,Response=response)
-                chain1 = LLMChain(llm=llm,prompt=prompt)
-                response = chain1.run(Question=query_text,Response=response)
+        # openai_api_key = st.text_input('OpenAI API Key', type='password', disabled=not (uploaded_file and query_text))
+        submitted = st.form_submit_button('Submit')
+        
+        if submitted:
+            with st.spinner('Calculating...'):
+                try:
+                    docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+                except:
+                    time.sleep(120)
+                    docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+
+                response = docs["result"]
+                try:
+                    prompt = get_prompt_critique()
+                    llm = OpenAI(api_key=open_api_key,temperature=0)
+                    prompt.format(Question=query_text,Response=response)
+                    chain1 = LLMChain(llm=llm,prompt=prompt)
+                    response = chain1.run(Question=query_text,Response=response)
+                except:
+                    time.sleep(120)
+                    prompt = get_prompt_critique()
+                    llm = OpenAI(api_key=open_api_key,temperature=0)
+                    prompt.format(Question=query_text,Response=response)
+                    chain1 = LLMChain(llm=llm,prompt=prompt)
+                    response = chain1.run(Question=query_text,Response=response)
+                    
+                result.append(response)
+                st.session_state.qa_data['question'] = query_text
+                st.session_state.qa_data['responses'].append(response)
+                for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
+                    st.info(f"Response : {r}")
+                st.title('Top Similar Documents')
+                df_lis = []
+                for i in docs["source_documents"]:
+                    lis = []
+                    lis.append(i.page_content)
+                    lis.append(i.metadata["source"])
+                    lis.append(i.metadata["page"])
+                    df_lis.append(lis)
+                similar_df = pd.DataFrame(df_lis,columns = ["Text", "Source Document", "Page Number"])
+
+                st.table(similar_df)
                 
-            result.append(response)
-            st.session_state.qa_data['question'] = query_text
-            st.session_state.qa_data['responses'].append(response)
-            for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
-                st.info(f"Response : {r}")
-            st.title('Top Similar Documents')
-            df_lis = []
-            for i in docs["source_documents"]:
-                lis = []
-                lis.append(i.page_content)
-                lis.append(i.metadata["source"])
-                lis.append(i.metadata["page"])
-                df_lis.append(lis)
-            similar_df = pd.DataFrame(df_lis,columns = ["Text", "Source Document", "Page Number"])
-
-            st.table(similar_df)
-            
-            
-#             del openai_api_key
-st.write(f"Last Submitted Question: {st.session_state.qa_data['question']}")
-st.write("All Responses:")
-for idx, r in enumerate(st.session_state.qa_data['responses'], start=1):
-    st.write(f"Response {idx}: {r}")
-    # if len(result):
-    #     st.info(response)
+                
+    #             del openai_api_key
+    st.write(f"Last Submitted Question: {st.session_state.qa_data['question']}")
+    st.write("All Responses:")
+    for idx, r in enumerate(st.session_state.qa_data['responses'], start=1):
+        st.write(f"Response {idx}: {r}")
+        # if len(result):
+        #     st.info(response)
 
