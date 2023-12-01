@@ -40,8 +40,8 @@ DB_NAME = "cochlear_7"
 COLLECTION_NAME = "vectorSearch"
 INDEX_NAME = "default"
 
-CHUNK_SIZE = 500
-CHUNK_OVERLAP = 100
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 0
 
 
 # In[3]:
@@ -224,40 +224,49 @@ else:
                 except:
                     time.sleep(120)
                     docs = get_response(DB_NAME,COLLECTION_NAME,INDEX_NAME,query_text)
+                if (len(docs) != 0) and ("result" in dict(docs).keys()):
 
-                response = docs["result"]
-                try:
-                    prompt = get_prompt_critique()
-                    llm = OpenAI(api_key=open_api_key,temperature=0)
-                    prompt.format(Question=query_text,Response=response)
-                    chain1 = LLMChain(llm=llm,prompt=prompt)
-                    response = chain1.run(Question=query_text,Response=response)
-                except:
-                    time.sleep(120)
-                    prompt = get_prompt_critique()
-                    llm = OpenAI(api_key=open_api_key,temperature=0)
-                    prompt.format(Question=query_text,Response=response)
-                    chain1 = LLMChain(llm=llm,prompt=prompt)
-                    response = chain1.run(Question=query_text,Response=response)
-                    
-                result.append(response)
-                st.session_state.qa_data['question'] = query_text
-                st.session_state.qa_data['responses'].append(response)
-                for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
-                    st.info(f"Response : {r}")
-                st.title('Top Similar Documents')
-                df_lis = []
-                for i in docs["source_documents"]:
-                    lis = []
-                    lis.append(i.page_content)
-                    lis.append(i.metadata["source"])
-                    lis.append(i.metadata["page"])
-                    df_lis.append(lis)
-                similar_df = pd.DataFrame(df_lis,columns = ["Text", "Source Document", "Page Number"])
+                    response = docs["result"]
+                    try:
+                        prompt = get_prompt_critique()
+                        llm = OpenAI(api_key=open_api_key,temperature=0)
+                        prompt.format(Question=query_text,Response=response)
+                        chain1 = LLMChain(llm=llm,prompt=prompt)
+                        response = chain1.run(Question=query_text,Response=response)
+                    except:
+                        time.sleep(120)
+                        prompt = get_prompt_critique()
+                        llm = OpenAI(api_key=open_api_key,temperature=0)
+                        prompt.format(Question=query_text,Response=response)
+                        chain1 = LLMChain(llm=llm,prompt=prompt)
+                        response = chain1.run(Question=query_text,Response=response)
+                        
+                    result.append(response)
+                    st.session_state.qa_data['question'] = query_text
+                    st.session_state.qa_data['responses'].append(response)
+                    for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
+                        st.info(f"Response : {r}")
+                    st.title('Top Similar Documents')
+                    df_lis = []
+                    for i in docs["source_documents"]:
+                        lis = []
+                        lis.append(i.page_content)
+                        if "source" in i.metadata.keys():
+                            lis.append(i.metadata["source"])
+                        else:
+                            lis.append("")
+                        if "page" in i.metadata.keys():
+                            lis.append(i.metadata["page"])
+                        else:
+                            lis.append(None)
+                        df_lis.append(lis)
+                    similar_df = pd.DataFrame(df_lis,columns = ["Text", "Source Document", "Page Number"])
 
-                st.table(similar_df)
+                    st.table(similar_df)
                 
-                
+                else:
+                    st.session_state.qa_data['question'] = query_text
+                    st.session_state.qa_data['responses'] = None
     #             del openai_api_key
     st.write(f"Last Submitted Question: {st.session_state.qa_data['question']}")
     st.write("All Responses:")
