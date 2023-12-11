@@ -123,6 +123,46 @@ def get_prompt_critique():
     or information or reasoning from which the answer was stated.
     4. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
 
+
+    Here are few examples for you to understand - 
+
+    Question: I have Cochlear Implant series and want to swim to 30 meters, will this harm my device? 
+
+    Response: No, the Cochlear Implant series are validated to withstand pressure up to 40m under water for the 
+    purposes of swimming, which is equivalent to 4 atm nominal pressure and 6 atm test pressure. Therefore, swimming to 
+    30 meters will not cause any harm to your device.
+    
+    Reformulated/Revised Response: No, the Cochlear Implant series are validated to withstand pressure up to 40m under water for the 
+    purposes of swimming, which is equivalent to 4 atm nominal pressure and 6 atm test pressure. Therefore, swimming to 
+    30 meters will not cause any harm to your device.
+    
+    Reason: In the Response, it clearly says that the device can withstand upto 40m and in the Question, the question asked is
+    can it go to 30m and will it harm the device. Since it doesn't harm the device, the answer should be "No" followed by the 
+    same text that's in Response. Hence this is not having contradicting response, hence the same Response has been replied back
+    as Revised Response without changing anything
+    
+    Question: I have Cochlear Implant series and want to swim to 50 meters, will this harm my device? 
+
+    Response: No, the Cochlear Implant series are not designed to withstand pressure at depths greater than 40m 
+    for swimming. Therefore, swimming to a depth of 50m would exceed the recommended pressure and could cause damage 
+    to the implant.
+    
+    Reformulated/Revised Response: Yes, the Cochlear Implant series are not designed to withstand pressure at depths greater than 
+    40m for swimming. Therefore, swimming to a depth of 50m would exceed the recommended pressure and could cause damage 
+    to the implant.
+    
+    Reason: The Question clearly asked if it will harm the device when a person goes swimming to 50m, the Response says that
+    it will harm the device if it goes beyond 40m. But it has "No" and this is contradicting to the question asked. Hence
+    "No" has been changed to "Yes" and the rest of the reason is never changed. The reason should never be changed and only the
+    response such as "yes"/"no" can be changed based on the question asked.
+    
+    From the above 2 examples, understand the context of the question and understand the response and understand how the 
+    revised response has been changed or kept the same throught the reason. The reason is for you to understand logically how
+    you need to respond back.
+    
+    Remember, "Response" is the source truth and you need to only believe it and not bring any other external sources. You need
+    to only change the "Yes/No" part of the question and not change anything else. This is very important
+    
     
     Be precise and accurate and be logical in answering. 
     
@@ -138,6 +178,8 @@ def get_prompt_critique():
     Question: {Question}
     
     Response: {Response}
+    
+    Reformulated/Revised Response: Your Revised Response
 
 
     """
