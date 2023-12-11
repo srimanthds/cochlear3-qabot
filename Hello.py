@@ -120,10 +120,8 @@ def get_prompt_critique():
     2. Read the response below. This response acts as the answer to the question. However this response may be semantically
     or logically incorrect in response.
     3. The response usually will have 2 parts, the first part will be the answer and the second part will have the context 
-    or information or reasoning from which the answer was stated.
-    4. If you find any range and your response is based on that range then treat the range as inclusive upper and lower
-    bounds
-    5. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
+    or information or reasoning from which the answer was stated.    
+    4. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
 
 
     Here are few examples for you to understand - 
