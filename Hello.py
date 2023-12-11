@@ -121,7 +121,9 @@ def get_prompt_critique():
     or logically incorrect in response.
     3. The response usually will have 2 parts, the first part will be the answer and the second part will have the context 
     or information or reasoning from which the answer was stated.
-    4. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
+    4. If you find any range and your response is based on that range then treat the range as inclusive upper and lower
+    bounds
+    5. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
 
 
     Here are few examples for you to understand - 
@@ -243,7 +245,7 @@ secret_key_dict = get_secret_key()
 open_api_key = secret_key_dict["open_api_key"]
 
 if 'qa_data' not in st.session_state:
-    st.session_state.qa_data = {'question': '', 'responses': []}
+    st.session_state.qa_data = {'question': '', 'rag_responses': [], 'responses': []}
 
 streamlit_pwd = st.secrets.streamlit_pwd
 # Form input and query
@@ -269,6 +271,7 @@ else:
                 if (len(docs) != 0) and ("result" in dict(docs).keys()):
 
                     response = docs["result"]
+                    st.session_state.qa_data['rag_responses'].append(response)
                     try:
                         prompt = get_prompt_critique()
                         llm = OpenAI(api_key=open_api_key,temperature=0)
@@ -312,6 +315,8 @@ else:
     #             del openai_api_key
     st.write(f"Last Submitted Question: {st.session_state.qa_data['question']}")
     st.write("All Responses:")
+    for idx, r in enumerate(st.session_state.qa_data['rag_responses'], start=1):
+        st.write(f"RAG Response : {r}")
     for idx, r in enumerate(st.session_state.qa_data['responses'], start=1):
         st.write(f"Response {idx}: {r}")
         # if len(result):
