@@ -125,7 +125,7 @@ def get_prompt_critique():
     3. The response usually will have 2 parts, the first part will be the answer and the second part will have the context 
     or information or reasoning from which the answer was stated.    
     4. If the answer and the reason are not in alignment, reformulate the response and send the correct response again
-    5. If the Response is not a "Yes/No" Response, do not forcefully add "Yes/No" to the revised response.
+    5. If the original response doesn't have "Yes/No", do not forcefully add "Yes/No" in the beginning.
 
     Here are few examples for you to understand - 
 
@@ -168,6 +168,8 @@ def get_prompt_critique():
     
     
     Be precise and accurate and be logical in answering. 
+
+    If the original response doesn't have "Yes/No", do not forcefully add "Yes/No" in the beginning.
     
     While formulating it be accurate and logical. Do not give contradicting answers. 
 
