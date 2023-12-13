@@ -271,6 +271,7 @@ else:
                 if (len(docs) != 0) and ("result" in dict(docs).keys()):
 
                     response = docs["result"]
+                    rag_response = response
                     st.session_state.qa_data['rag_responses'].append(response)
                     try:
                         prompt = get_prompt_critique()
@@ -290,7 +291,10 @@ else:
                     st.session_state.qa_data['question'] = query_text
                     st.session_state.qa_data['responses'].append(response)
                     for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
-                        st.info(f"Response : {r}")
+                        st.info(f"Question: {query_text} \nRAG Response : {rag_response}\nResponse : {r} ")
+                        # st.info(f"RAG Response : {rag_response}")
+                        # st.info(f"Response : {r}")
+
                     st.title('Top Similar Documents')
                     df_lis = []
                     for i in docs["source_documents"]:
