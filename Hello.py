@@ -100,15 +100,12 @@ def get_prompt():
 
     While formulating it be accurate and logical. Do not give contradicting answers. 
 
-    The context that you use to answer the question should be the only facts you will look out for and not 
-    any other external facts. While formulating the response read the question again and answer accordingly to avoid contradicting 
-    replies
+    The context that you use to answer the question should be the only facts you will look out for and not any other external
+    facts. While formulating the response read the question again and answer accordingly to avoid contradicting replies
+
+    {context}
 
     Question: {question}
-    
-    Context: {context}
-
-
     """
     prompt = PromptTemplate(
         template=prompt_template, input_variables=["context", "question"]
