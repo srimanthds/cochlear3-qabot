@@ -92,25 +92,56 @@ def connect_mongodb(atlas_connection_string):
 
 
 def get_prompt():
-    prompt_template = """Use the following pieces of context to answer the question at the end. 
-    If you don't know the answer, just say that you don't know, don't try to make up an answer.
-    Be precise and accurate and be logical in answering. 
-
-    Your job is to first reply to the question giving the reason too
-
-    While formulating it be accurate and logical. Do not give contradicting answers. 
-
-    The context that you use to answer the question should be the only facts you will look out for and not any other external
-    facts. While formulating the response read the question again and answer accordingly to avoid contradicting replies
-
-    {context}
-
-    Question: {question}
-    """
-    prompt = PromptTemplate(
-        template=prompt_template, input_variables=["context", "question"]
+ 
+  prompt_template="""
+    role='You are an expert acting as an helpful chatbot assistant who provides call center agents with accurate information retrieved from context without hallucinating'
+    instructions='1. You must start your response with Hi and Generate an accurate response according to the user question by referring to information provided in the context
+    2.Your response should not bring any external information apart from context i am sharing 3.If you dont have enough information to answer the question, Please respond that you dont have sufficient knowledge to answer the question
+    4.Give me how much percentage you are confident of your response based on the context provided'
+    details='response should give the information you think is correct based on the question and conclude your response with yes/no if required'
+    examples='''
+  'Q': "I am flying to Dubai tomorrow and its 60 degrees celsius there,  is it safe to travel there ?", "context": context provided in this prompt template,
+            "A":"Reasoning- In dubai current temperature is 60 degrees, According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
+            +" According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since 60 degrees in dubai is > 5 degrees and greater than 40 degrees, I would say exposing to extreme temperatures would need doctors recommendation. ANSWER- Hence say No, Not recommended ".
+  'Q': "I am flying to canada tomorrow and its -10 degrees celsius there,  is it okay to travel to canade with extreme low temperatures after my implant surgery ?",
+            "context": context provided in this prompt template,
+            "A":"Reasoning- In canada  temperature is -10 degrees, According to source information  Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
+            +" According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since -10 degrees temperature  in canada is < -5 and 40 degress, I would say exposing to such low temperatures would need doctors recommendation. ANSWER-No, Not recommended ".
+  'Q': "I am flying to India tomorrow and its 45 degrees celsius there because of hot summer,  is it safe to travel there as i had implant surgery recently ?",
+            "context": context provided in this prompt template,
+            "A":"Reasoning- In India current temperature is 45 degrees,According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
+            +"According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors,  Since 45 degrees in India is greater than the upper thresols 40 degress and greater than 5 degrees of lower thresold for sound processors, I would say exposing to extreme temperatures would need doctors recommendation. ANSWER-No, Not recommended without medical advice".
+  'Q': "I am flying to saudi arabia next month and its expected teperature is 35 degrees celsius there,  is it safe to travel there ?",
+            "context": '''Extreme temperatures may be experience in some countries during seasonal periods or in a car parked in the sun.
+Extreme temperatures may also be experienced in e.g. saunas or medical treatment (cold chamber).The sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C.
+The implant incorporated in the body will not be exposed to extreme temperatures. Recommendation: The recipient can undergo extreme temperatures (e.g. sauna, cold chamber) without any harm to the implant.
+The externals should be taken off while undergoing this procedure. Recipients should follow the user manual in relation to storage of the external equipment and batteries
+(e.g. not to leave externals on a hot day on the dashboard of an automobile)''',
+            "A":"Reasoning- In saudi arabia expected temperature for next month is 35 degrees, According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
+            +" Since 35 degrees in saudi arabia is less than +40°C and greater than +5°C the temperature is falling within the thresold i.e.., +5°C to +40°C  for sound processors,It is safe to travel. ANSWER- YES".         
+  'Q': "I would like to do under water diving at a depth of 60 meters, will tthis harm my Nucleus CI24R device",
+            "context": '''The Nucleus CI24R, CI24M and CI22M implants are validated to withstand pressure at a depth of 25m under water for the purposes of scuba diving, which is equivalent to 2.5 atm nominal pressure and 4 atm test pressure.
+The Nucleus CI500 series and Freedom (CI24RE) implants are validated to withstand pressure at a depth of 40m under water for the purposes of scuba diving, which is equivalent to 4 atm nominal pressure and 6 atm test pressure.
+Recipients should seek medical advice before participating in a dive for conditions that might make diving contraindicated, e.g. middle ear infection, etc.
+When wearing a mask avoid pressure over the implant site''',
+            "A":"Reasoning- According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving" \
+            +"you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for This device as per the souce information. It is not recommended"
+            ANSWER- YES".
+            '''
+  directions=''' "The response should match the information from context and no external data should be used for generating response",
+                "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
+                "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" '''
+ 
+  validation='Always validate your response with instructions provided.'
+  Context: {context}
+  Question: {question}  
+  """
+ 
+  prompt = PromptTemplate(
+        template=prompt_template, input_variables=["context", "question","role","instructions","details","examples","directions","validation"]
     )
-    return prompt
+  
+  return prompt
 
 def get_prompt_critique():
     prompt_template = """You are the smart engine that looks at the response below along with the question asked
@@ -191,7 +222,16 @@ def get_prompt_critique():
     return prompt
 
 # In[20]:
-
+def get_prompt_critique2():
+    prompt_template = """You are the smart engine that looks at the response below along with the question asked and makes edit to the response only if you think the response needs to be edited due to logical or contradicting mistakes.If the response below says its not confident and doesn't have knowledge then mention the same as your response
+    Question: {Question}
+    Response: {Response}
+    Reformulated/Revised Response: Your Revised Response
+    """
+    prompt = PromptTemplate(
+        template=prompt_template, input_variables=["Question", "Response"]
+    )
+    return prompt
 
 def get_response(db_name, collection_name, index_name, query):
     secret_key_dict = get_secret_key()
@@ -274,14 +314,14 @@ else:
                     rag_response = response
                     st.session_state.qa_data['rag_responses'].append(response)
                     try:
-                        prompt = get_prompt_critique()
+                        prompt = get_prompt_critique2()
                         llm = OpenAI(api_key=open_api_key,temperature=0)
                         prompt.format(Question=query_text,Response=response)
                         chain1 = LLMChain(llm=llm,prompt=prompt)
                         response = chain1.run(Question=query_text,Response=response)
                     except:
                         time.sleep(120)
-                        prompt = get_prompt_critique()
+                        prompt = get_prompt_critique2()
                         llm = OpenAI(api_key=open_api_key,temperature=0)
                         prompt.format(Question=query_text,Response=response)
                         chain1 = LLMChain(llm=llm,prompt=prompt)
