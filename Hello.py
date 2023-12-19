@@ -378,27 +378,27 @@ else:
                     for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
 
                         # Split the response into words
-                    words = rag_response.split(' ')                    
-                    # Initialize an empty line and list of lines
-                    line, lines = '', []
-                    
-                    # Add words to the line until it exceeds the desired width
-                    for word in words:
-                        if len(line + word) > 10:
-                            lines.append(line)
-                            line = word + ' '
-                        else:
-                            line += word + ' '
-                    
-                    # Add the last line
-                    lines.append(line)
-                    
-                    # Join the lines with newline characters
-                    formatted_response = '\n'.join(lines)
-                    
-                    # Display the formatted response
-                    st.info(f"Question: {query_text} \n\n {formatted_response} \n\n")
-                    
+                        words = rag_response.split(' ')                    
+                        # Initialize an empty line and list of lines
+                        line, lines = '', []
+                        
+                        # Add words to the line until it exceeds the desired width
+                        for word in words:
+                            if len(line + word) > 10:
+                                lines.append(line)
+                                line = word + ' '
+                            else:
+                                line += word + ' '
+                        
+                        # Add the last line
+                        lines.append(line)
+                        
+                        # Join the lines with newline characters
+                        formatted_response = '\n'.join(lines)
+                        
+                        # Display the formatted response
+                        st.info(f"Question: {query_text} \n\n {formatted_response} \n\n")
+                        
 
 
 
