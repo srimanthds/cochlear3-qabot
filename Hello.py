@@ -165,14 +165,12 @@ The implant incorporated in the body will not be exposed to extreme temperatures
 The externals should be taken off while undergoing this procedure. Recipients should follow the user manual in relation to storage of the external equipment and batteries
 (e.g. not to leave externals on a hot day on the dashboard of an automobile)''',
             "A":"In saudi arabia if expected temperature for next month is 35 degrees, After validating with source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C. Since 35 degrees in saudi arabia is less than +40°C and greater than +5°C the temperature is falling within the thresold i.e.., +5°C to +40°C  for sound processors.Yes, Its safe to travel".         
-  'Q': "I would like to do under water diving at a depth of 60 meters, will tthis harm my Nucleus CI24R device",
+  'Q': "I would like to do under water diving at a depth of 60 meters, will this harm my Nucleus CI24R device",
             "context": '''The Nucleus CI24R, CI24M and CI22M implants are validated to withstand pressure at a depth of 25m under water for the purposes of scuba diving, which is equivalent to 2.5 atm nominal pressure and 4 atm test pressure.
 The Nucleus CI500 series and Freedom (CI24RE) implants are validated to withstand pressure at a depth of 40m under water for the purposes of scuba diving, which is equivalent to 4 atm nominal pressure and 6 atm test pressure.
 Recipients should seek medical advice before participating in a dive for conditions that might make diving contraindicated, e.g. middle ear infection, etc.
 When wearing a mask avoid pressure over the implant site''',
-            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving"\
-+ "to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for this device as per the souce information hence it is not recommended".
-            Yes,it may harm the device".'''
+            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for this device as per the souce information hence it is not recommended. Yes,it may harm the device".'''
   directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
                 "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" ''' 
