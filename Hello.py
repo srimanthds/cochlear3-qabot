@@ -171,7 +171,7 @@ When wearing a mask avoid pressure over the implant site''',
   directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
                 "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" ''' 
-  validation='Always validate your response with instructions provided and frame the entire sentence properly while giving your response.'
+  validation='Always validate your response with instructions provided.'
   Context: {context}
     Question: {question}  
   """
@@ -181,7 +181,8 @@ When wearing a mask avoid pressure over the implant site''',
     )
   
   return prompt
-
+    
+    
 def get_prompt_critique():
     prompt_template = """You are the smart engine that looks at the response below along with the question asked
     and makes edit to the response only if you think the response needs to be edited due to logical or contradicting mistakes
