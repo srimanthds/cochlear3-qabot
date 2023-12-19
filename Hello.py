@@ -171,7 +171,7 @@ When wearing a mask avoid pressure over the implant site''',
   directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
                 "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" ''' 
-  validation='Always validate your response with instructions provided.'
+  validation='Always validate your response with instructions provided and frame the entire sentence properly while giving your response.'
   Context: {context}
     Question: {question}  
   """
