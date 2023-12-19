@@ -157,7 +157,7 @@ def get_prompt():
   'Q': "  'Q': "I am flying to India tomorrow and its 45 degrees celsius there because of hot summer,  is it safe to travel there as i had implant surgery recently ?",
             "context": context provided in this prompt template,
             "A":"In India current temperature is 45 degrees,According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
-            +"According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors,  Since 45 degrees in India is greater than the upper thresols 40 degress and greater than 5 degrees of lower thresold for sound processors, I would say exposing to extreme temperatures would need doctors recommendation.Not recommended without medical advice."
+            +"According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors,  Since 45 degrees in India is greater than the upper thresold 40 degress and greater than 5 degrees of lower thresold for sound processors, I would say exposing to extreme temperatures would need doctors recommendation.Not recommended without medical advice."
   'Q': "I am flying to saudi arabia next month and its expected teperature is 35 degrees celsius there,  is it safe to travel there ?",
             "context": '''Extreme temperatures may be experience in some countries during seasonal periods or in a car parked in the sun.
 Extreme temperatures may also be experienced in e.g. saunas or medical treatment (cold chamber).The sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C.
