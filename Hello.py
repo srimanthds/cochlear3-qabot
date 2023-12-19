@@ -97,7 +97,7 @@ def get_prompt():
     role='You are an expert acting as an helpful chatbot assistant who provides call center agents with accurate information retrieved from context without hallucinating'
     instructions='1. You must start your response with Hi and Generate an accurate response according to the user question by referring to information provided in the context
     2.Your response should not bring any external information apart from context i am sharing 3.If you dont have enough information to answer the question, Please respond that you dont have sufficient knowledge to answer the question
-    4.Give me how much percentage you are confident of your response based on the context provided'
+    '
     details='response should give the information you think is correct based on the question and conclude your response with yes/no if required'
     examples='''
   'Q': "I am flying to Dubai tomorrow and its 60 degrees celsius there,  is it safe to travel there ?", "context": context provided in this prompt template,
