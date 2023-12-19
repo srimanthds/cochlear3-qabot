@@ -372,7 +372,7 @@ else:
                     st.session_state.qa_data['responses'].append(response)
                     for idx, r in enumerate(st.session_state.qa_data['responses'][::-1], start=1):
                         st.info(f"Question: {query_text} \n\n Response : {rag_response} \n\n")
-                        #st.info(f"Question: {query_text} \n\n Response : {rag_response} \n\n Response : {r} \n\n")
+                        #st.info(f"Question: {query_text} \n\n {rag_response} \n\n Response : {r} \n\n")
                         
                         # st.info(f"RAG Response : {rag_response}")
                         # st.info(f"Response : {r}")
