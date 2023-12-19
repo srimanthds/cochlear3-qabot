@@ -170,7 +170,8 @@ The externals should be taken off while undergoing this procedure. Recipients sh
 The Nucleus CI500 series and Freedom (CI24RE) implants are validated to withstand pressure at a depth of 40m under water for the purposes of scuba diving, which is equivalent to 4 atm nominal pressure and 6 atm test pressure.
 Recipients should seek medical advice before participating in a dive for conditions that might make diving contraindicated, e.g. middle ear infection, etc.
 When wearing a mask avoid pressure over the implant site''',
-            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for This device as per the souce information hence it is not recommended.
+            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving"\
++ "to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for this device as per the souce information hence it is not recommended".
             Yes,it may harm the device".'''
   directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
