@@ -145,11 +145,15 @@ def get_prompt():
     2.Your response should not bring any external information apart from context i am sharing 3.If you dont have enough information to answer the question, Please respond that you dont have sufficient knowledge to answer the question'
     details='response should give the information you think is correct based on the question and conclude your response with yes/no if required'
     examples='''
-    'Q': "I am flying to Dubai tomorrow and its 60 degrees celsius there,  is it safe to travel there ?", "context": context provided in this prompt template,
-            "A":"In dubai current temperature is 60 degrees, According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C. According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since 60 degrees in dubai is > 5 degrees and greater than 40 degrees, I would say exposing to extreme temperatures would need doctors recommendation.Hence say No,Not recommended ".
+    'Q': "I am flying to Dubai tomorrow and its 60 degrees celsius there,  is it safe to travel there ?",
+    "context": context provided in this prompt template,
+            "A":"In dubai current temperature is 60 degrees, According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C.
+            According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since 60 degrees in dubai is > 5 degrees and greater than 40 degrees, I would say exposing to extreme temperatures would need doctors recommendation.
+            Hence say No,Not recommended."
   'Q': "I am flying to canada tomorrow and its -10 degrees celsius there,  is it okay to travel to canade with extreme low temperatures after my implant surgery ?",
             "context": context provided in this prompt template,
-            "A":"In canada  temperature is -10 degrees, According to source information  Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C. According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since -10 degrees temperature  in canada is < -5 and 40 degress, I would say exposing to such low temperatures would need doctors recommendation.No,Not recommended ".
+            "A":"In canada  temperature is -10 degrees, According to source information  Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C. According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since -10 degrees temperature  in canada is < -5 and 40 degress, 
+            I would say exposing to such low temperatures would need doctors recommendation.No,Not recommended".
   'Q': "  'Q': "I am flying to India tomorrow and its 45 degrees celsius there because of hot summer,  is it safe to travel there as i had implant surgery recently ?",
             "context": context provided in this prompt template,
             "A":"In India current temperature is 45 degrees,According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
@@ -166,7 +170,8 @@ The externals should be taken off while undergoing this procedure. Recipients sh
 The Nucleus CI500 series and Freedom (CI24RE) implants are validated to withstand pressure at a depth of 40m under water for the purposes of scuba diving, which is equivalent to 4 atm nominal pressure and 6 atm test pressure.
 Recipients should seek medical advice before participating in a dive for conditions that might make diving contraindicated, e.g. middle ear infection, etc.
 When wearing a mask avoid pressure over the implant site''',
-            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for This device as per the souce information hence it is not recommended.Yes,it may harm the device".'''
+            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for This device as per the souce information hence it is not recommended.
+            Yes,it may harm the device".'''
   directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
                 "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" ''' 
