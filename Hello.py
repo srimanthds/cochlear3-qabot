@@ -123,15 +123,13 @@ Recipients should seek medical advice before participating in a dive for conditi
 When wearing a mask avoid pressure over the implant site''',
             "A":"Reasoning- According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving" \
             +"you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for This device as per the souce information. It is not recommended"
-            ANSWER- YES".
-            '''
+            ANSWER- YES".'''
   directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
-                "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" '''
- 
+                "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you" ''' 
   validation='Always validate your response with instructions provided.'
   Context: {context}
-  Question: {question}  
+    Question: {question}  
   """
  
   prompt = PromptTemplate(
