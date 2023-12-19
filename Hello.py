@@ -116,7 +116,7 @@ Extreme temperatures may also be experienced in e.g. saunas or medical treatment
 The implant incorporated in the body will not be exposed to extreme temperatures. Recommendation: The recipient can undergo extreme temperatures (e.g. sauna, cold chamber) without any harm to the implant.
 The externals should be taken off while undergoing this procedure. Recipients should follow the user manual in relation to storage of the external equipment and batteries
 (e.g. not to leave externals on a hot day on the dashboard of an automobile)''',
-            "A":"Reasoning- In saudi arabia expected temperature for next month is 35 degrees, According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
+            "A":"Reasoning- In saudi arabia if expected temperature for next month is 35 degrees, After validating with source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C." \
             +" Since 35 degrees in saudi arabia is less than +40°C and greater than +5°C the temperature is falling within the thresold i.e.., +5°C to +40°C  for sound processors,It is safe to travel. ANSWER- YES".         
   'Q': "I would like to do under water diving at a depth of 60 meters, will tthis harm my Nucleus CI24R device",
             "context": '''The Nucleus CI24R, CI24M and CI22M implants are validated to withstand pressure at a depth of 25m under water for the purposes of scuba diving, which is equivalent to 2.5 atm nominal pressure and 4 atm test pressure.
