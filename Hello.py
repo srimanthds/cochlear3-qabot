@@ -145,13 +145,6 @@ def get_prompt():
     2.Your response should not bring any external information apart from context i am sharing 3.If you dont have enough information to answer the question, Please respond that you dont have sufficient knowledge to answer the question'
     details='response should give the information you think is correct based on the question and conclude your response with yes/no if required'
     examples='''
-    'Q': "I am flying to Dubai tomorrow and its 60 degrees celsius there, is it safe to travel there ?",
-    "context": "The Nucleus CI24R, CI24M and CI22M implants are validated to withstand pressure at a depth of 25m under water for the purposes of scuba diving, which is equivalent to 2.5 atm nominal pressure and 4 atm test pressure.
-The Nucleus CI500 series and Freedom (CI24RE) implants are validated to withstand pressure at a depth of 40m under water for the purposes of scuba diving, which is equivalent to 4 atm nominal pressure and 6 atm test pressure.
-Recipients should seek medical advice before",
-            "A":"In dubai current temperature is 60 degrees, According to source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C.
-            According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since 60 degrees in dubai is > 5 degrees and greater than 40 degrees, I would say exposing to extreme temperatures would need doctors recommendation.
-            Hence say No,Not recommended."
   'Q': "I am flying to canada tomorrow and its -10 degrees celsius there,  is it okay to travel to canade with extreme low temperatures after my implant surgery ?",
             "context": context provided in this prompt template,
             "A":"In canada  temperature is -10 degrees, According to source information  Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C. According to source  the operating temperatures thresold i.e.., +5°C to +40°C  for sound processors, Since -10 degrees temperature  in canada is < -5 and 40 degrees, 
