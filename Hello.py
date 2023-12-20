@@ -212,14 +212,7 @@ The implant incorporated in the body will not be exposed to extreme temperatures
 The externals should be taken off while undergoing this procedure. Recipients should follow the user manual in relation to storage of the external equipment and batteries
 (e.g. not to leave externals on a hot day on the dashboard of an automobile)",
             "A":"In saudi arabia if expected temperature for next month is 35 degrees, After validating with source information Sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C. Since 35 degrees in saudi arabia is less than +40°C and greater than +5°C the temperature is falling within the thresold i.e.., +5°C to +40°C  for sound processors.Yes, Its safe to travel".         
-  'Q': "I would like to do under water diving at a depth of 60 meters, will this harm my Nucleus CI24R device",
-            "context": "Extreme temperatures may be experience in some countries during seasonal periods or in a car parked in the sun.
-Extreme temperatures may also be experienced in e.g. saunas or medical treatment (cold chamber).The sound processors are specified for operating Temperatures between +5°C to +40°C and storage temperatures between -20°C to +50°C.
-The implant incorporated in the body will not be exposed to extreme temperatures. Recommendation: The recipient can undergo extreme temperatures (e.g. sauna, cold chamber) without any harm to the implant.
-The externals should be taken off while undergoing this procedure. Recipients should follow the user manual in relation to storage of the external equipment and batteries
-(e.g. not to leave externals on a hot day on the dashboard of an automobile)",
-            "A":"According to source information Sound processors are specified to withstand pressure at a depth of 40m under water for the purposes of scuba diving you are willing to do diving to 60 meters for sound processors,since 60 meters >40 meters where 40 meters is the maximum withstandable pressure for this device as per the souce information hence it is not recommended. Yes,it may harm the device".'''
-  directions=''' "The response should match the information from context and no external data should be used for generating response",
+    directions=''' "The response should match the information from context and no external data should be used for generating response",
                 "call center agent question may contain numerical fields in it. If yes, then compare numeric values with thresold values available in context and validate it twice before giving response",
                 "If you are not sure of answer, Acknowledge it instead of giving wrong response as misinformation may lead to loss of trust on you","Please respond that you dont have sufficient knowledge to answer your question based on the knowledge base i have been trained on" ''' 
   validation='Always validate your response with instructions provided.'
