@@ -64,13 +64,15 @@ def get_secret_key():
 
 def get_vector_search_object(cluster,db_name,collection_name, index_name,open_api_key):
     mongodb_collection = cluster[db_name][collection_name]
-    doc =  Document(page_content="dummy text", metadata={"source": "dummy"})
-    vector_search = MongoDBAtlasVectorSearch.from_documents(
-                    documents=[doc],
-                    embedding=OpenAIEmbeddings(api_key=open_api_key),
-                    collection=mongodb_collection,
-                    index_name=index_name 
-                )
+    # doc =  Document(page_content="dummy text", metadata={"source": "dummy"})
+    # vector_search = MongoDBAtlasVectorSearch.from_documents(
+    #                 documents=[doc],
+    #                 embedding=OpenAIEmbeddings(api_key=open_api_key),
+    #                 collection=mongodb_collection,
+    #                 index_name=index_name 
+    #             )
+    embedding=OpenAIEmbeddings(api_key=open_api_key)
+    vector_search = MongoDBAtlasVectorSearch(mongodb_collection, embedding)
     return vector_search
 
 
