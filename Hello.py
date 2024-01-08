@@ -35,7 +35,7 @@ import pandas as pd
 PDF_FOLDER_PATH = "Data/"
 LOADED_PDF_FILES_PICKLE = "loaded_pdf_files_pickle.pkl"
 VECTOR_SEARCH_PICKLE = "vector_search_pickle.pkl"
-DB_NAME = "cochlear_13"
+DB_NAME = "cochlear_15"
 COLLECTION_NAME = "vectorSearch"
 INDEX_NAME = "default"
 
